@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="An academic blog on Wearable Devices and IoT in Healthcare Monitoring — functional blocks, IoT communication models, and SDG 3." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/style.css" />
+    <title>Wearable Devices & IoT in Healthcare Monitoring</title>
+    <meta property="og:image" content="https://bolt.new/static/og_default.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
+</head>
+  <body>
+    <!-- ===== NAVIGATION ===== -->
+    <header class="site-header" id="top">
+      <nav class="navbar" aria-label="Primary">
+        <a href="#top" class="nav-brand" aria-label="Home">
+          <span class="nav-brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2 6 4-12 2 6h6"/></svg>
+          </span>
+          <span class="nav-brand-text">IoT&nbsp;Health&nbsp;Blog</span>
+        </a>
+        <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle navigation">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#top">Home</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#architecture">IoT Architecture</a></li>
+          <li><a href="#applications">Applications</a></li>
+          <li><a href="#sdg3">SDG 3</a></li>
+          <li><a href="#challenges">Challenges</a></li>
+          <li><a href="#references">References</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <!-- ===== HERO ===== -->
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-bg" aria-hidden="true"></div>
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <div class="presented-by">
+              <span class="presented-by-label">Presented by:</span>
+              <span class="presented-by-names">Siddhi Kale • Shreyash Karande • Mrunal Kasar</span>
+              <span class="presented-by-meta">ECS/BE1 • Batch A</span>
+            </div>
+            <span class="pill pill-accent">IoT in Healthcare • SDG 3</span>
+            <h1 id="hero-title" class="hero-title">Wearable Devices &amp; IoT in Healthcare Monitoring</h1>
+            <p class="hero-subtitle">From heartbeats to health insights — how connected wearable technology is changing the way we monitor, prevent, and manage healthcare.</p>
+            <div class="hero-actions">
+              <a href="#architecture" class="btn btn-primary">Explore the Technology</a>
+              <a href="#comm-models" class="btn btn-ghost">View IoT Architecture</a>
+            </div>
+            <ul class="hero-stats" aria-label="Key statistics">
+              <li><span class="stat-num">24/7</span><span class="stat-label">Monitoring</span></li>
+              <li><span class="stat-num">Live</span><span class="stat-label">Real-time Data</span></li>
+              <li><span class="stat-num">Anywhere</span><span class="stat-label">Remote Healthcare</span></li>
+              <li><span class="stat-num">Early</span><span class="stat-label">Detection</span></li>
+            </ul>
+          </div>
+          <div class="hero-visual" aria-hidden="true">
+            <!-- SVG illustration: wearable + heart + phone + cloud + dashboard -->
+            <svg class="hero-svg" viewBox="0 0 420 420" role="img" aria-label="Illustration of a smartwatch, heart, smartphone, cloud and doctor dashboard connected by signal lines.">
+              <defs>
+                <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#22d3ee"/>
+                  <stop offset="1" stop-color="#2563eb"/>
+                </linearGradient>
+                <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#14b8a6"/>
+                  <stop offset="1" stop-color="#0ea5e9"/>
+                </linearGradient>
+                <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#0ea5e9" flood-opacity="0.18"/>
+                </filter>
+              </defs>
+
+              <!-- signal arcs -->
+              <path d="M120 120 Q210 60 300 120" stroke="#38bdf8" stroke-width="2" fill="none" stroke-dasharray="5 7" opacity="0.7"/>
+              <path d="M300 160 Q210 230 120 300" stroke="#2dd4bf" stroke-width="2" fill="none" stroke-dasharray="5 7" opacity="0.6"/>
+              <path d="M150 330 Q230 360 320 330" stroke="#60a5fa" stroke-width="2" fill="none" stroke-dasharray="5 7" opacity="0.5"/>
+
+              <!-- smartwatch -->
+              <g filter="url(#soft)">
+                <rect x="40" y="90" width="90" height="110" rx="22" fill="url(#g1)"/>
+                <rect x="48" y="98" width="74" height="94" rx="14" fill="#0b1220" opacity="0.85"/>
+                <path d="M62 140 h12 l6 -16 l10 32 l8 -20 h14" stroke="#22d3ee" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                <rect x="70" y="70" width="30" height="20" rx="6" fill="url(#g1)"/>
+                <rect x="70" y="200" width="30" height="20" rx="6" fill="url(#g1)"/>
+              </g>
+
+              <!-- heart -->
+              <g filter="url(#soft)">
+                <path d="M210 150 c-12 -22 -48 -18 -48 8 c0 22 48 52 48 52 c0 0 48 -30 48 -52 c0 -26 -36 -30 -48 -8 z" fill="url(#g2)"/>
+                <path d="M186 168 h8 l4 -8 l8 18 l6 -12 h10" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+
+              <!-- smartphone -->
+              <g filter="url(#soft)">
+                <rect x="280" y="90" width="80" height="140" rx="14" fill="#0b1220" opacity="0.9"/>
+                <rect x="288" y="100" width="64" height="110" rx="8" fill="url(#g2)"/>
+                <rect x="298" y="112" width="44" height="8" rx="4" fill="#fff" opacity="0.85"/>
+                <rect x="298" y="128" width="34" height="6" rx="3" fill="#fff" opacity="0.6"/>
+                <circle cx="320" cy="165" r="16" fill="none" stroke="#fff" stroke-width="3"/>
+                <path d="M312 165 h16 M320 157 v16" stroke="#fff" stroke-width="2"/>
+              </g>
+
+              <!-- cloud -->
+              <g filter="url(#soft)">
+                <path d="M120 280 c-18 0 -22 22 -8 28 c-6 16 18 20 26 10 c8 12 30 6 28 -8 c12 -2 12 -22 -2 -24 c-2 -14 -24 -16 -30 -6 c-6 -4 -14 -2 -14 0 z" fill="url(#g1)"/>
+                <path d="M120 300 h44 M120 308 h36" stroke="#fff" stroke-width="2" opacity="0.7"/>
+              </g>
+
+              <!-- dashboard -->
+              <g filter="url(#soft)">
+                <rect x="250" y="280" width="130" height="90" rx="12" fill="#0b1220" opacity="0.9"/>
+                <rect x="260" y="292" width="110" height="10" rx="5" fill="url(#g2)"/>
+                <rect x="260" y="310" width="50" height="24" rx="4" fill="#22d3ee" opacity="0.8"/>
+                <rect x="320" y="310" width="50" height="24" rx="4" fill="#2dd4bf" opacity="0.8"/>
+                <path d="M262 348 l12 -8 l12 4 l14 -14 l12 6 l14 -10 l12 6" stroke="#60a5fa" stroke-width="2" fill="none"/>
+                <circle cx="335" cy="362" r="4" fill="#38bdf8"/>
+              </g>
+            </svg>
+            <p class="visual-credit">Illustration created for this project.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== ACADEMIC INFO CARD ===== -->
+      <section class="info-strip" aria-label="Academic context">
+        <div class="container info-grid">
+          <article class="info-card">
+            <span class="info-tag">Module Connection</span>
+            <p>Functional Blocks + IoT Communication Models</p>
+          </article>
+          <article class="info-card">
+            <span class="info-tag info-tag-alt">SDG Connection</span>
+            <p>SDG 3 — Good Health and Well-being</p>
+          </article>
+          <article class="info-card">
+            <span class="info-tag info-tag-acc">Topic</span>
+            <p>Wearable Devices &amp; IoT in Healthcare Monitoring</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ===== INTRODUCTION ===== -->
+      <section id="how-it-works" class="section reveal">
+        <div class="container">
+          <header class="section-head">
+            <span class="eyebrow">The Real-World Problem</span>
+            <h2>Healthcare That Doesn’t Stop When You Leave the Hospital</h2>
+          </header>
+          <div class="prose">
+            <p>Traditional healthcare often depends on periodic check-ups — a visit every few weeks or months, a quick reading, and then silence in between. But many health conditions do not wait for appointments. They develop gradually, appear at odd hours, and reveal themselves only through continuous observation over days and nights.</p>
+            <p>Wearable devices such as smartwatches, fitness bands, smart rings, continuous glucose monitors, and connected medical patches can fill this gap. They quietly collect physiological information like heart rate, blood oxygen (SpO₂), body temperature, physical activity, sleep patterns, ECG signals, and glucose levels — turning everyday moments into useful health data.</p>
+          </div>
+          <blockquote class="quote-card">
+            <p>“Instead of asking only ‘How are you today?’, IoT can help healthcare systems understand ‘How has your health changed over time?’”</p>
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- ===== METAPHOR ===== -->
+      <section class="section section-alt reveal">
+        <div class="container">
+          <header class="section-head">
+            <span class="eyebrow">Real-World Metaphor</span>
+            <h2>Think of a Wearable as a Tiny Health Assistant</h2>
+            <p class="section-lead">Imagine a small assistant that never sleeps, quietly watching over your health and reporting only what matters.</p>
+          </header>
+          <ol class="metaphor-chain">
+            <li class="m-card">
+              <span class="m-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+              </span>
+              <h3>1. Observes</h3>
+              <p>The wearable keeps track of body signals like heart rate, movement, and oxygen level throughout the day.</p>
+            </li>
+            <li class="m-card">
+              <span class="m-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v4H3zM3 10h18v4H3zM3 17h18v4H3z"/></svg>
+              </span>
+              <h3>2. Collects</h3>
+              <p>It gathers and stores these readings, building a continuous picture rather than a single snapshot.</p>
+            </li>
+            <li class="m-card">
+              <span class="m-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.94 0M12 20h.01"/></svg>
+              </span>
+              <h3>3. Communicates</h3>
+              <p>It sends the information to a phone, gateway, or cloud using wireless connections like Bluetooth or Wi-Fi.</p>
+            </li>
+            <li class="m-card">
+              <span class="m-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 3 5-6"/></svg>
+              </span>
+              <h3>4. Analyzes</h3>
+              <p>The data is examined for patterns, trends, or unusual changes that might need attention.</p>
+            </li>
+            <li class="m-card">
+              <span class="m-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              </span>
+              <h3>5. Alerts</h3>
+              <p>If something looks unusual, it can notify the user, a caregiver, or a healthcare professional.</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ===== IOT FUNCTIONAL BLOCKS ===== -->
+      <section id="architecture" class="section reveal">
+        <div class="container">
+          <header class="section-head">
+            <span class="eyebrow">IoT Functional Blocks</span>
+            <h2>Behind the Wrist: IoT Functional Blocks</h2>
+            <p class="section-lead">Every wearable IoT system is built from a chain of functional blocks, each handling one stage of the health data journey.</p>
+          </header>
+
+          <div class="blocks-grid">
+            <article class="block-card">
+              <span class="block-num">1</span>
+              <span class="block-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v8M8 12h8"/></svg></span>
+              <h3>Sensing</h3>
+              <p>Wearable sensors collect physiological data such as heart rate, SpO₂, temperature, and motion.</p>
+            </article>
+            <article class="block-card">
+              <span class="block-num">2</span>
+              <span class="block-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8v8H8z"/></svg></span>
+              <h3>Data Processing</h3>
+              <p>The device or gateway performs basic filtering and processing before forwarding the readings.</p>
+            </article>
+            <article class="block-card">
+              <span class="block-num">3</span>
+              <span class="block-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.94 0"/></svg></span>
+              <h3>Communication</h3>
+              <p>Data is transferred using Bluetooth Low Energy (BLE), Wi-Fi, NFC, or cellular networks.</p>
+            </article>
+            <article class="block-card">
+              <span class="block-num">4</span>
+              <span class="block-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></span>
+              <h3>Cloud / Storage</h3>
+              <p>Healthcare data can be transmitted to cloud platforms for storage and further analysis.</p>
+            </article>
+            <article class="block-card">
+              <span class="block-num">5</span>
+              <span class="block-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 3 5-6"/></svg></span>
+              <h3>Analytics</h3>
+              <p>Data is analyzed to identify patterns, abnormalities, or long-term health trends.</p>
+            </article>
+            <article class="block-card">
+              <span class="block-num">6</span>
+              <span class="block-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
+              <h3>Application / UI</h3>
+              <p>Patients, caregivers, and doctors view meaningful information through apps or dashboards.</p>
+            </article>
+          </div>
+
+          <!-- Architecture diagram -->
+          <div class="arch-diagram" aria-label="IoT architecture flow diagram">
+            <h3 class="diagram-title">IoT Architecture Flow</h3>
+            <div class="arch-flow">
+              <div class="arch-node"><span class="arch-ic" aria-hidden="true">⌚</span>Wearable Sensors</div>
+              <span class="arch-arrow" aria-hidden="true">↓</span>
+              <div class="arch-node">Edge / Device Processing</div>
+              <span class="arch-arrow" aria-hidden="true">↓</span>
+              <div class="arch-node">Communication Network</div>
+              <span class="arch-arrow" aria-hidden="true">↓</span>
+              <div class="arch-node">Gateway / Smartphone</div>
+              <span class="arch-arrow" aria-hidden="true">↓</span>
+              <div class="arch-node">Cloud Platform</div>
+              <span class="arch-arrow" aria-hidden="true">↓</span>
+              <div class="arch-node">Analytics</div>
+              <span class="arch-arrow" aria-hidden="true">↓</span>
+              <div class="arch-node arch-node-end">Doctor / Patient Dashboard</div>
+            </div>
+            <p class="visual-credit">Diagram created for this project.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== IOT COMMUNICATION MODELS ===== -->
+      <section id="comm-models" class="section section-alt reveal">
+        <div class="container">
+          <header class="section-head">
+            <span class="eyebrow">IoT Communication Models</span>
+            <h2>How Does the Data Travel?</h2>
+            <p class="section-lead">Once the wearable collects data, it needs a path to reach the systems and people who can use it. IoT describes four common communication models.</p>
+          </header>
+
+          <div class="comm-grid">
+            <article class="comm-card">
+              <h3><span class="comm-tag">A</span> Device-to-Device</h3>
+              <p>Wearables communicate directly with nearby devices, such as a watch pairing with a phone over Bluetooth, without needing an internet connection.</p>
+            </article>
+            <article class="comm-card">
+              <h3><span class="comm-tag">B</span> Device-to-Cloud</h3>
+              <p>The wearable or its gateway sends data straight to a cloud service for storage and analysis, often over Wi-Fi or cellular networks.</p>
+            </article>
+            <article class="comm-card">
+              <h3><span class="comm-tag">C</span> Device-to-Gateway</h3>
+              <p>A smartphone or gateway acts as an intermediary, collecting data from the wearable and forwarding it to the cloud.</p>
+            </article>
+            <article class="comm-card">
+              <h3><span class="comm-tag">D</span> Back-End Data Sharing</h3>
+              <p>Healthcare applications use stored and analyzed information to provide services to authorized users, such as doctors or caregivers.</p>
+            </article>
+          </div>
+
+          <!-- Communication flow diagram -->
+          <div class="comm-diagram" aria-label="Communication flow diagram">
+            <h3 class="diagram-title">Data Flow: Wearable to Doctor</h3>
+            <div class="comm-flow">
+              <div class="comm-node"><span class="comm-ic">⌚</span>Wearable</div>
+              <span class="comm-link">BLE</span>
+              <div class="comm-node">Smartphone / Gateway</div>
+              <span class="comm-link">Wi-Fi / Cellular</span>
+              <div class="comm-node">Internet</div>
+              <span class="comm-link">Cloud</span>
+              <div class="comm-node">Cloud Platform</div>
+              <span class="comm-link">Analytics</span>
+              <div class="comm-node">Healthcare App</div>
+              <span class="comm-link">Dashboard</span>
+              <div class="comm-node comm-node-end">Doctor / Patient</div>
+            </div>
+            <p class="visual-credit">Diagram created for this project.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== APPLICATIONS ===== -->
+      <section id="applications" class="section reveal">
+        <div class="container">
+          <header class="section-head">
+            <span class="eyebrow">Real-World Applications</span>
+            <h2>Where Is This Already Making a Difference?</h2>
+          </header>
+          <div class="app-grid">
+            <article class="app-card">
+              <div class="app-img">
+                <img src="https://images.pexels.com/photos/7195115/pexels-photo-7195115.jpeg?auto=compress&cs=tinysrgb&w=800" alt="A doctor conducting an online consultation with a patient via laptop" loading="lazy" />
+              </div>
+              <div class="app-body">
+                <h3>Remote Patient Monitoring</h3>
+                <p>Connected devices allow healthcare professionals to keep track of patients outside the hospital, observing important health indicators from a distance.</p>
+              </div>
+            </article>
+            <article class="app-card">
+              <div class="app-img">
+                <img src="https://images.pexels.com/photos/19961775/pexels-photo-19961775.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Close-up of a smartwatch displaying a heart rate of 90 bpm on a person's wrist" loading="lazy" />
+              </div>
+              <div class="app-body">
+                <h3>Early Warning &amp; Detection</h3>
+                <p>Continuous measurements can help spot unusual patterns — such as irregular heart rhythms or sudden changes — that may need attention before they become serious.</p>
+              </div>
+            </article>
+            <article class="app-card">
+              <div class="app-img">
+                <img src="https://images.pexels.com/photos/16984203/pexels-photo-16984203.jpeg?auto=compress&cs=tinysrgb&w=800" alt="A person checking blood glucose level with a meter" loading="lazy" />
+              </div>
+              <div class="app-body">
+                <h3>Chronic Disease Management</h3>
+                <p>For people managing long-term conditions like diabetes or heart disease, wearable monitoring can support day-to-day tracking and more informed care decisions.</p>
+              </div>
+            </article>
+            <article class="app-card">
+              <div class="app-img">
+                <img src="https://images.pexels.com/photos/4429141/pexels-photo-4429141.jpeg?auto=compress&cs=tinysrgb&w=800" alt="A person in sportswear with a smart watch resting after exercising" loading="lazy" />
+              </div>
+              <div class="app-body">
+                <h3>Fitness &amp; Preventive Healthcare</h3>
+                <p>Activity, sleep, and heart-rate measurements encourage healthier daily habits and help people stay more aware of their own well-being.</p>
+              </div>
+            </article>
+          </div>
+          <p class="visual-credit">Image source: Pexels (stock photography, free to use).</p>
+        </div>
+      </section>
+
+      <!-- ===== SDG 3 ===== -->
+      <section id="sdg3" class="section section-sdg reveal">
+        <div class="container">
+          <header class="section-head section-head-light">
+            <span class="eyebrow eyebrow-light">Sustainable Development Goal</span>
+            <h2>Technology Supporting SDG 3</h2>
+          </header>
+          <div class="sdg-badge" aria-label="SDG 3 badge">
+            <span class="sdg-num">3</span>
+            <span class="sdg-text">GOOD HEALTH AND WELL-BEING</span>
+          </div>
+          <div class="prose prose-light">
+            <p>IoT-enabled healthcare monitoring can <strong>support</strong> SDG 3 — but it does not achieve it on its own. Wearables are part of a broader healthcare system that includes professionals, infrastructure, policy, and trust. Their contribution is to extend the reach of care.</p>
+            <p>By enabling continuous monitoring, remote support, and earlier identification of potential health problems, connected wearables can improve access to health monitoring, support preventive healthcare, and help healthcare professionals make better-informed decisions. They also raise general health awareness, encouraging people to take a more active role in their own well-being.</p>
+          </div>
+
+          <!-- Impact chain -->
+          <div class="impact-chain" aria-label="SDG 3 impact chain">
+            <h3 class="diagram-title diagram-title-light">Impact Chain</h3>
+            <div class="chain-flow">
+              <div class="chain-node">Connected Wearables</div>
+              <span class="chain-arrow" aria-hidden="true">↓</span>
+              <div class="chain-node">Continuous Health Data</div>
+              <span class="chain-arrow" aria-hidden="true">↓</span>
+              <div class="chain-node">Timely Insights</div>
+              <span class="chain-arrow" aria-hidden="true">↓</span>
+              <div class="chain-node">Better-Informed Decisions</div>
+              <span class="chain-arrow" aria-hidden="true">↓</span>
+              <div class="chain-node">Improved Healthcare Support</div>
+              <span class="chain-arrow" aria-hidden="true">↓</span>
+              <div class="chain-node chain-node-end">SDG 3: Good Health &amp; Well-being</div>
+            </div>
+            <p class="visual-credit visual-credit-light">Infographic created for this project.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== BENEFITS TO SOCIETY ===== -->
+      <section class="section section-alt reveal">
+        <div class="container">
+          <header class="section-head">
+            <span class="eyebrow">Benefits to Society</span>
+            <h2>Beyond the Device: Benefits to Society</h2>
+          </header>
+          <div class="benefit-grid">
+            <article class="benefit-card">
+              <h3>Patients</h3>
+              <ul>
+                <li>Convenient monitoring at home</li>
+                <li>Greater awareness of personal health</li>
+                <li>Remote support from caregivers</li>
+              </ul>
+            </article>
+            <article class="benefit-card">
+              <h3>Doctors</h3>
+              <ul>
+                <li>More continuous information</li>
+                <li>Data-supported decisions</li>
+                <li>Remote observation of patients</li>
+              </ul>
+            </article>
+            <article class="benefit-card">
+              <h3>Society</h3>
+              <ul>
+                <li>Preventive healthcare focus</li>
+                <li>Potentially reduced pressure on hospitals</li>
+                <li>Greater access to monitoring technology</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== CHALLENGES ===== -->
+      <section id="challenges" class="section section-dark reveal">
+        <div class="container">
+          <header class="section-head section-head-light">
+            <span class="eyebrow eyebrow-light">Challenges</span>
+            <h2>The Technology Is Powerful — But Not Perfect</h2>
+          </header>
+          <div class="challenge-grid">
+            <article class="challenge-card">
+              <span class="ch-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+              <h3>1. Data Privacy</h3>
+              <p>Health data is deeply personal and must be protected from misuse or unauthorized access.</p>
+            </article>
+            <article class="challenge-card">
+              <span class="ch-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+              <h3>2. Cybersecurity</h3>
+              <p>Connected devices can introduce security risks if they are not properly updated and protected.</p>
+            </article>
+            <article class="challenge-card">
+              <span class="ch-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></span>
+              <h3>3. Accuracy</h3>
+              <p>Consumer wearables may not always match clinically certified medical instruments.</p>
+            </article>
+            <article class="challenge-card">
+              <span class="ch-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2"/><path d="M6 11h6"/></svg></span>
+              <h3>4. Battery &amp; Connectivity</h3>
+              <p>Devices depend on power and a reliable wireless connection to keep working.</p>
+            </article>
+            <article class="challenge-card">
+              <span class="ch-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg></span>
+              <h3>5. Digital Divide</h3>
+              <p>Not everyone has equal access to smartphones, internet, or wearable devices.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== FUTURE SCOPE + OBSERVATION ===== -->
+      <section class="section reveal">
+        <div class="container">
+          <header class="section-head">
+            <span class="eyebrow">Future Scope</span>
+            <h2>What Comes Next?</h2>
+          </header>
+          <div class="prose">
+            <p>The next few years are likely to bring AI-assisted health analytics, more accurate sensors, smart medical patches, and continuous glucose monitoring into everyday use. Edge computing could allow wearables to process data locally and respond faster, while 5G and advanced connectivity may make real-time remote healthcare more practical. Over time, these technologies could integrate with electronic health records and support more personalized, proactive healthcare — shifting the focus from reacting to illness toward preventing it.</p>
+          </div>
+
+          <aside class="observation-box">
+            <h3>My Observation</h3>
+            <p>In my view, the biggest value of wearable IoT is not simply collecting more health data, but turning that data into timely and understandable information. However, healthcare should never depend blindly on a wearable reading. IoT should act as a support system for patients and healthcare professionals, while privacy, accuracy, affordability, and responsible data use remain essential.</p>
+          </aside>
+        </div>
+      </section>
+
+      <!-- ===== CONCLUSION ===== -->
+      <section class="section section-alt reveal">
+        <div class="container">
+          <header class="section-head">
+            <span class="eyebrow">Conclusion</span>
+            <h2>Conclusion</h2>
+          </header>
+          <div class="prose">
+            <p>Wearable devices are, at their core, IoT sensing devices. Through their functional blocks — sensing, processing, communication, cloud storage, analytics, and user interfaces — they collect and transform physiological signals into meaningful health information. Using communication models like device-to-device, device-to-cloud, and device-to-gateway, they connect patients, gateways, cloud platforms, and healthcare applications. Their real-world applications in remote monitoring, early detection, chronic disease management, and preventive care offer clear social benefits and support SDG 3. However, responsible implementation — protecting privacy, ensuring accuracy, and closing the digital divide — is essential for this technology to truly help people.</p>
+            <p class="conclusion-statement">“The future of healthcare may not only be inside hospitals — it may also be connected to us.”</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== KEY TAKEAWAYS ===== -->
+      <section class="section reveal">
+        <div class="container">
+          <header class="section-head">
+            <span class="eyebrow">Summary</span>
+            <h2>Key Takeaways</h2>
+          </header>
+          <ul class="takeaways">
+            <li><span class="check" aria-hidden="true">✓</span> Wearables act as IoT sensing devices.</li>
+            <li><span class="check" aria-hidden="true">✓</span> IoT communication connects devices, gateways, cloud platforms and applications.</li>
+            <li><span class="check" aria-hidden="true">✓</span> Healthcare IoT enables continuous and remote monitoring.</li>
+            <li><span class="check" aria-hidden="true">✓</span> Responsible use of health data is essential.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ===== REFERENCES ===== -->
+      <section id="references" class="section section-alt reveal">
+        <div class="container">
+          <header class="section-head">
+            <span class="eyebrow">References</span>
+            <h2>References</h2>
+          </header>
+          <ol class="references">
+            <li>
+              <p class="ref-author">World Health Organization (WHO)</p>
+              <p class="ref-title">Global Strategy on Digital Health 2020–2025</p>
+              <p class="ref-meta">World Health Organization · 2021 · <a href="https://www.who.int/teams/digital-health-and-innovation" target="_blank" rel="noopener">who.int/teams/digital-health-and-innovation</a></p>
+            </li>
+            <li>
+              <p class="ref-author">Piwek, L., Ellis, D. A., Andrews, S., &amp; Joinson, A. (2016)</p>
+              <p class="ref-title">The Rise of Consumer Health Wearables: Promises and Barriers</p>
+              <p class="ref-meta">PLoS Medicine · 2016 · <a href="https://doi.org/10.1371/journal.pmed.1001953" target="_blank" rel="noopener">doi.org/10.1371/journal.pmed.1001953</a></p>
+            </li>
+            <li>
+              <p class="ref-author">Majumder, S., Mondal, T., &amp; Deen, M. J. (2017)</p>
+              <p class="ref-title">Wearable Sensors for Remote Health Monitoring</p>
+              <p class="ref-meta">Sensors (MDPI) · 2017 · <a href="https://doi.org/10.3390/s17010130" target="_blank" rel="noopener">doi.org/10.3390/s17010130</a></p>
+            </li>
+            <li>
+              <p class="ref-author">Bahga, A., &amp; Madisetti, V.</p>
+              <p class="ref-title">Internet of Things: A Hands-on Approach</p>
+              <p class="ref-meta">Universities Press · 2015</p>
+            </li>
+            <li>
+              <p class="ref-author">Gubbi, J., Buyya, R., Marusic, S., &amp; Palaniswami, M. (2013)</p>
+              <p class="ref-title">Internet of Things (IoT): A Vision, Architectural Elements, and Future Directions</p>
+              <p class="ref-meta">Future Generation Computer Systems · 2013 · <a href="https://doi.org/10.1016/j.future.2013.01.010" target="_blank" rel="noopener">doi.org/10.1016/j.future.2013.01.010</a></p>
+            </li>
+          </ol>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div class="footer-main">
+          <h3>Wearable Devices &amp; IoT in Healthcare Monitoring</h3>
+          <p>An academic IoT blog on technology, healthcare and SDG 3.</p>
+        </div>
+        <div class="footer-meta">
+          <p><span class="footer-label">Module:</span> Functional Blocks, IoT Communication Models</p>
+          <p><span class="footer-label">SDG:</span> 3 – Good Health and Well-being</p>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <p>© 2026 Academic Project · Content written originally for this assignment.</p>
+      </div>
+    </footer>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
